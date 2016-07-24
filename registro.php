@@ -21,7 +21,7 @@
 
             $permitidos = array(".pdf");
             $limite_kb = 16384000;
-        //if (in_array($_FILES['archivo']['type'], $permitidos) && $_FILES['archivo']['size'] <= $limite_kb * 1024){                
+        if (in_array($_FILES['archivo']['type'], $permitidos) && $_FILES['archivo']['size'] <= $limite_kb * 1024){                
 
             $sql = "INSERT INTO solicitudes(nombre,apellidos,direccion,correo,fecha,lugar,telefono) VALUES ('$name','$lastname','$address','$email','$birthday','$place','$phone')";//Se insertan los datos a la base de datos y el usuario ya fue registrado con exito.
             mysql_query($sql);
@@ -46,9 +46,9 @@
             } else {
                 echo '<script language="javascript">alert("ocurrio un error al copiar el archivo.");</script> ';
             }
-        /*} else {
+        } else {
             echo '<script language="javascript">alert("archivo no permitido, es tipo de archivo prohibido o excede el tamaño de $limite_kb Kilobytes");</script> ';
-        }*/
+        }
                 echo "<script>location.href='registro.html'</script>";
         }
 ?>
