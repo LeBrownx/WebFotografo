@@ -6,49 +6,51 @@
     $birthday = $_POST['birthday'];
     $place = $_POST['place'];
     $phone = $_POST['phone'];
-    $archivo = !empty($_FILES['archivo']);
+    $archivo = $_FILES["archivo"]["tmp_name"]; 
+    $tamanio = $_FILES["archivo"]["size"];
+    $tipo    = $_FILES["archivo"]["type"];    
+    $nombre  = $_FILES["archivo"]["name"];
+    echo $nombre."nombre". $archivo."<-ruta" . $tamanio."<-tamaño" . $tipo."<-tipo";
     //echo $name . $lastname . $address;
     //echo $email . $birthday . $place . $phone;
     //echo $archivo;
-    if ( !isset($_FILES["archivo"]) || $_FILES["archivo"]["error"] > 0){
-        echo "ha ocurrido un error";
-    }
-    else{
-        mysql_connect('localhost','root','root')
-        or die("Error al conectar " . mysql_error());
-        mysql_select_db('analisis') //aca era proyecto
-        or die ("Error al seleccionar la Base de datos: " . mysql_error());
+        $conn = mysql_connect('localhost','root','root');
+        mysql_select_db('analisis');
 
-            $permitidos = array(".pdf");
-            $limite_kb = 16384000;
-        if (in_array($_FILES['archivo']['type'], $permitidos) && $_FILES['archivo']['size'] <= $limite_kb * 1024){                
-
+        if ( $archivo != "none" ){
+            $fp = fopen($archivo, "rb");
+            $contenido = fread($fp, $tamanio);
+            $contenido = addslashes($contenido);
+            fclose($fp); 
+            //echo "mi contenido ".$contenido;
             $sql = "INSERT INTO solicitudes(nombre,apellidos,direccion,correo,fecha,lugar,telefono) VALUES ('$name','$lastname','$address','$email','$birthday','$place','$phone')";//Se insertan los datos a la base de datos y el usuario ya fue registrado con exito.
             mysql_query($sql);
-            //este es el archivo temporal
-            $imagen_temporal  = $_FILES['archivo']['tmp_name'];
-            //este es el tipo de archivo
-            $tipo = $_FILES['archivo']['type'];
-            //leer el archivo temporal en binario
-                    $fp     = fopen($imagen_temporal, 'r+b');
-                    $data = fread($fp, filesize($imagen_temporal));
-                    fclose($fp);
-                    //escapar los caracteres
-                    $data = mysql_escape_string($data);
-            /*$link = mysql_connect('localhost', 'root','root'); 
-            mysql_select_db('solicitudes', $link); */
-            echo $data;
+            
             $result = mysql_query("SELECT id_solicitud FROM solicitudes WHERE nombre = '$name' AND correo = '$email' AND telefono = '$phone'");
-            $resultado = mysql_query("INSERT INTO scan (id_solicitud, archivo, tipo_imagen) VALUES ('$result', $data', '$tipo')") ;
-
-            if ($resultado){                
-                echo '<script language="javascript">alert("Usuario Registrado");</script> ';
-            } else {
-                echo '<script language="javascript">alert("ocurrio un error al copiar el archivo.");</script> ';
+            
+            while ($fila = mysql_fetch_assoc($result)) {
+                //echo $fila['id_solicitud'];
+                $id = $fila['id_solicitud'];
             }
-        } else {
-            echo '<script language="javascript">alert("archivo no permitido, es tipo de archivo prohibido o excede el tamaño de $limite_kb Kilobytes");</script> ';
+            //echo "mi id ".$id;
+
+            $qry = "INSERT INTO scan (id_solicitud, archivo, tipo_imagen) VALUES ('$id', $contenido', '$tipo')";
+            //echo "mi qry ".$qry;
+            mysql_query($qry);
+
+            if(mysql_affected_rows() > 0){
+                echo '<script language="javascript">alert("Usuario Registrado");</script> ';
+                //header("Location: registro.html");
+            }
+            
+            else{
+                echo '<script language="javascript">alert("NO se ha podido guardar el archivo en la base de datos.");</script> ';
+                //header("Location: registro.html");
+            }
         }
-                echo "<script>location.href='registro.html'</script>";
+        else{
+            echo '<script language="javascript">alert("No se ha podido subir el archivo al servidor");</script> ';
+            //header("Location: registro.html");
         }
+        //header("Location: registro.html");   
 ?>
