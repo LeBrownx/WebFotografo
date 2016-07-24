@@ -6,6 +6,12 @@ body{
   font-size:10pt;
 }
 
+#label{
+  font-family:Open Sans;
+  font-size:12pt;
+  color: black;
+}
+
 input{
   font-family:Open Sans;
   font-size:12pt;

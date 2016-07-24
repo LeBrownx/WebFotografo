@@ -10,7 +10,7 @@
     $tamanio = $_FILES["archivo"]["size"];
     $tipo    = $_FILES["archivo"]["type"];    
     $nombre  = $_FILES["archivo"]["name"];
-    echo $nombre."nombre". $archivo."<-ruta" . $tamanio."<-tamaño" . $tipo."<-tipo";
+    //echo $nombre."nombre". $archivo."<-ruta" . $tamanio."<-tamaño" . $tipo."<-tipo";
     //echo $name . $lastname . $address;
     //echo $email . $birthday . $place . $phone;
     //echo $archivo;
@@ -22,35 +22,31 @@
             $contenido = fread($fp, $tamanio);
             $contenido = addslashes($contenido);
             fclose($fp); 
-            //echo "mi contenido ".$contenido;
             $sql = "INSERT INTO solicitudes(nombre,apellidos,direccion,correo,fecha,lugar,telefono) VALUES ('$name','$lastname','$address','$email','$birthday','$place','$phone')";//Se insertan los datos a la base de datos y el usuario ya fue registrado con exito.
             mysql_query($sql);
-            
+
             $result = mysql_query("SELECT id_solicitud FROM solicitudes WHERE nombre = '$name' AND correo = '$email' AND telefono = '$phone'");
             
             while ($fila = mysql_fetch_assoc($result)) {
-                //echo $fila['id_solicitud'];
                 $id = $fila['id_solicitud'];
             }
-            //echo "mi id ".$id;
 
-            $qry = "INSERT INTO scan (id_solicitud, archivo, tipo_imagen) VALUES ('$id', $contenido', '$tipo')";
-            //echo "mi qry ".$qry;
+            $qry = "INSERT INTO scan (id_solicitud, archivo, tipo_imagen) VALUES ('$id', '$contenido', '$tipo')";
             mysql_query($qry);
 
             if(mysql_affected_rows() > 0){
                 echo '<script language="javascript">alert("Usuario Registrado");</script> ';
-                //header("Location: registro.html");
+                echo "<script>location.href='registro.html'</script>";
             }
             
             else{
                 echo '<script language="javascript">alert("NO se ha podido guardar el archivo en la base de datos.");</script> ';
-                //header("Location: registro.html");
+                echo "<script>location.href='registro.html'</script>";
             }
         }
         else{
             echo '<script language="javascript">alert("No se ha podido subir el archivo al servidor");</script> ';
-            //header("Location: registro.html");
+            echo "<script>location.href='registro.html'</script>";
         }
         //header("Location: registro.html");   
 ?>
