@@ -17,6 +17,7 @@
   <head>
     <meta charset="utf-8">
     <title></title>
+     <link rel="stylesheet" href="notificacion.css" media="screen" title="no title" charset="utf-8">
   </head>
   <body>
     <h1>SOLICITUDES</h1>
@@ -27,7 +28,7 @@
       ?>
       <tr>
         <td>
-          <?php echo $row[0]," ",$row[1]," ",$row[2],$row[3]," ",$row[4],$row[5]," ",$row[6]," ",$row[7]?>
+          <?php echo $row[1]," ",$row[2]?>
           <form class="" action="RevisarSolicitud.php" method="post">
             <input type="hidden" name="id" value="<?php echo $row[0] ?>">
             <button type="submit" name="button">Mas</button>

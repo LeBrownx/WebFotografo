@@ -1,0 +1,68 @@
+body{
+  background-image: url("fondo.jpg");
+  color:white;
+  text-align:center;
+  font-family:Open Sans;
+  font-size:25pt;
+  position: center;
+}
+
+#label{
+  font-family:Open Sans;
+  font-size:12pt;
+  color: black;
+}
+
+input{
+  font-family:Open Sans;
+  font-size:12pt;
+  line-height:2.6em;
+  height:2.6em;
+  margin:0;
+  padding:0;
+  width:20%;
+  border: none;
+}
+
+h1{
+  color:white;
+  text-align:center;
+  font-family:Open Sans;
+  font-size:27pt;
+  position: center;}
+
+
+h2{
+  margin-top: 20%;
+  color:white;
+  text-align:center;
+  font-family:Open Sans;
+  font-size:28pt;
+  position: center;
+}
+
+button{
+    position: absolute;
+    border-color: white;
+    
+    border-radius: 4px;
+    background:  #1f68e5;
+    width: 60px;
+    height: 30px;
+    color: white;
+
+}
+
+button{
+    background:#3f4c6b;
+   
+    cursor: pointer;
+}
+/*form{
+  width:500px;
+  margin:0 auto;
+  background:white;
+  border-radius:10px;
+  margin-bottom:20px;
+  padding:20px;
+}*/
