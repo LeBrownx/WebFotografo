@@ -31,7 +31,7 @@
                 $id = $fila['id_solicitud'];
             }
 
-            $qry = "INSERT INTO scan (id_solicitud, archivo, tipo_imagen) VALUES ('$id', '$contenido', '$tipo')";
+            $qry = "INSERT INTO scan (id_solicitud, nombre, tipo, size, archivo) VALUES ('$id', '$nombre', '$tipo', '$tamanio', '$contenido')";
             mysql_query($qry);
 
             if(mysql_affected_rows() > 0){
