@@ -6,8 +6,13 @@
         or die ("Error al seleccionar la Base de datos: " . mysql_error());
         
         $informacion = mysql_query("SELECT * FROM solicitudes WHERE id_solicitud=".$_POST['id']);
-        $pdf = mysql_query("SELECT * FROM scan WHERE id_solicitud=".$_POST['id']);
+        $result = mysql_query("SELECT * FROM scan WHERE id_solicitud=".$_POST['id']);
         $row = mysql_fetch_array($informacion);
+        $pdf = mysql_fetch_assoc($result);
+        header("Content-disposition: attachment; filename=$filename");
+        header("Content-length: $size");
+        header("Content-type:".$type["tipo_imagen"]."");
+        echo $pdf["archivo"];
     }        
 ?>
 <!DOCTYPE HTML>

@@ -24,8 +24,10 @@ DROP TABLE IF EXISTS `scan`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `scan` (
   `id_solicitud` int(11) NOT NULL,
-  `archivo` blob NOT NULL,
-  `tipo_imagen` varchar(45) NOT NULL,
+  `nombre` varchar(45) NOT NULL,
+  `tipo` varchar(45) NOT NULL,
+  `size` int(11) NOT NULL,
+  `archivo` mediumblob NOT NULL,
   PRIMARY KEY (`id_solicitud`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -48,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-07-23 21:10:37
+-- Dump completed on 2016-07-24 21:13:46
