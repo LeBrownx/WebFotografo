@@ -33,7 +33,7 @@ h1{
 
 
 h2{
-  margin-top: 20%;
+  margin-top: 80px;
   color:white;
   text-align:center;
   font-family:Open Sans;
@@ -44,18 +44,19 @@ h2{
 button{
     position: absolute;
     border-color: white;
-    
     border-radius: 4px;
     background:  #1f68e5;
-    width: 60px;
-    height: 30px;
+    margin-left: 10px;
+    width: 50px;
+    height: 20px;
     color: white;
+
 
 }
 
 button{
     background:#3f4c6b;
-   
+
     cursor: pointer;
 }
 /*form{
